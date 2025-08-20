@@ -14,14 +14,15 @@
     "incremental": true,
     "skipLibCheck": true,
     "strict": true,
-    "useUnknownInCatchVariables": false,
-    "paths": {
-      "@categories/*": ["src/categories/*"],
-      "@meals/*": ["src/meals/*"],
-      "@orders/*": ["src/orders/*"],
-      "@config/*": ["src/config/*"],
-    }
+    "useUnknownInCatchVariables": false
+    // "paths": {
+    //   "@categories/*": ["src/categories/*"],
+    //   "@meals/*": ["src/meals/*"],
+    //   "@orders/*": ["src/orders/*"],
+    //   "@config/*": ["src/config/*"],
+    //   "@common": ["src/common"]
+    // }
   },
-  "include": ["src"],
+  "include": ["src", "scripts/workers"],
   "exclude": ["node_modules", "dist", "tmp"]
 }

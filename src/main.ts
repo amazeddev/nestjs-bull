@@ -5,7 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { swaggerSetup } from './swagger-setup';
-import { CommonConfig } from '@config/common.config';
+import { CommonConfig } from './config/common.config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -31,7 +31,7 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: true,
       forbidUnknownValues: true,
-      transform: true,
+      // transform: true,
     }),
   );
   if (commonConfig.env === 'development') {

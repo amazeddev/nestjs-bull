@@ -1,6 +1,6 @@
 import { bool, cleanEnv, host, port, str } from 'envalid';
 import { registerAs } from '@nestjs/config';
-import { ConfigNames } from '@config/config-names.enum';
+import { ConfigNames } from './config-names.enum';
 
 const env = cleanEnv(process.env, {
   REDIS_HOST: host({ devDefault: 'localhost' }),
@@ -16,4 +16,5 @@ export const RedisConfig = registerAs(ConfigNames.Redis, () => ({
   username: env.REDIS_USERNAME,
   password: env.REDIS_PASSWORD,
   tls: env.REDIS_TLS ? {} : undefined,
+  db: 11,
 }));

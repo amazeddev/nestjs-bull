@@ -1,7 +1,7 @@
 import { cleanEnv, makeValidator, port, str } from 'envalid';
 import { isURL } from 'class-validator';
 import { registerAs } from '@nestjs/config';
-import { ConfigNames } from '@config/config-names.enum';
+import { ConfigNames } from './config-names.enum';
 
 const frontUrls = makeValidator((value) => {
   const values = value.split(',');
