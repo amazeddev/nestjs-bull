@@ -14,11 +14,9 @@ export class OrdersService {
   ) {}
 
   async createOrder(order: CreateOrderRequest): Promise<Order> {
-    console.log('createOrder', order);
     const mealsData = await this.mealsService.getMealsByIds(
       order.meals.map((meal) => meal.mealId),
     );
-    console.log('mealsData', mealsData);
     if (!mealsData.length) {
       throw new NotFoundException('Meals not found');
     }
