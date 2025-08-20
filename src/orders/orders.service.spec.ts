@@ -15,14 +15,14 @@ describe('OrdersService', () => {
   let orderProducerService: jest.Mocked<OrderProducerService>;
 
   const mockMeal1: Meal = {
-    _id: 'meal1',
+    _id: new ObjectId('68a4cffa17ab54c22ac8d4e3'),
     name: 'Ramen Bowl',
     category: MealCategory.Ramen,
     price: 12.99,
   };
 
   const mockMeal2: Meal = {
-    _id: 'meal2',
+    _id: new ObjectId('68a4cffa17ab54c22ac8d4e4'),
     name: 'Sushi Roll',
     category: MealCategory.Sushi,
     price: 8.5,
@@ -33,14 +33,14 @@ describe('OrdersService', () => {
     status: OrderStatus.New,
     meals: [
       {
-        mealId: 'meal1',
+        mealId: '68a4cffa17ab54c22ac8d4e3',
         name: 'Ramen Bowl',
         category: MealCategory.Ramen,
         price: 12.99,
         quantity: 2,
       },
       {
-        mealId: 'meal2',
+        mealId: '68a4cffa17ab54c22ac8d4e4',
         name: 'Sushi Roll',
         category: MealCategory.Sushi,
         price: 8.5,
@@ -92,8 +92,8 @@ describe('OrdersService', () => {
       const orderId = '68a5742f7a10b55b4a40b964';
       const createOrderRequest: CreateOrderRequest = {
         meals: [
-          { mealId: 'meal1', quantity: 2 },
-          { mealId: 'meal2', quantity: 1 },
+          { mealId: '68a4cffa17ab54c22ac8d4e3', quantity: 2 },
+          { mealId: '68a4cffa17ab54c22ac8d4e4', quantity: 1 },
         ],
       };
 
@@ -109,21 +109,21 @@ describe('OrdersService', () => {
 
       // then
       expect(mealsService.getMealsByIds).toHaveBeenCalledWith([
-        'meal1',
-        'meal2',
+        '68a4cffa17ab54c22ac8d4e3',
+        '68a4cffa17ab54c22ac8d4e4',
       ]);
       expect(ordersRepository.create).toHaveBeenCalledWith({
         status: OrderStatus.New,
         meals: [
           {
-            mealId: 'meal1',
+            mealId: '68a4cffa17ab54c22ac8d4e3',
             name: 'Ramen Bowl',
             category: MealCategory.Ramen,
             price: 12.99,
             quantity: 2,
           },
           {
-            mealId: 'meal2',
+            mealId: '68a4cffa17ab54c22ac8d4e4',
             name: 'Sushi Roll',
             category: MealCategory.Sushi,
             price: 8.5,
@@ -134,6 +134,21 @@ describe('OrdersService', () => {
       });
       expect(orderProducerService.orderCreated).toHaveBeenCalledWith(orderId);
       expect(result).toEqual(mockOrder);
+    });
+  });
+
+  describe('getOrders', () => {
+    it('should return all orders from repository', async () => {
+      // given
+      const mockOrders = [mockOrder];
+      ordersRepository.findAll.mockResolvedValue(mockOrders);
+
+      // when
+      const result = await service.getOrders();
+
+      // then
+      expect(ordersRepository.findAll).toHaveBeenCalledWith();
+      expect(result).toEqual(mockOrders);
     });
   });
 });
